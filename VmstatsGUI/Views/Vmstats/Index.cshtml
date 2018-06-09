@@ -1,0 +1,59 @@
+﻿@model VmstatsGUI.Request
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Step: Start</h2>
+
+<p>Please enter the information to select the data to be processed. Once entered press the button to continue and for the results to be displayed.</p>
+
+<form asp-action="Process">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="FromDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FromDate" class="form-control" />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ToDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ToDate" class="form-control" />
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VmPattern" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="VmPattern" class="form-control" />
+                <span asp-validation-for="VmPattern" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Dsl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="Dsl" rows="4" cols="40" class="form-control">
+                </textarea>
+                <span asp-validation-for="Dsl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Process" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to Start</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

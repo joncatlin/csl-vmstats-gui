@@ -1,0 +1,60 @@
+﻿@model VmstatsGUI.Request
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Step: Processing</h2>
+
+<form asp-action="Process">
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <label asp-for="FromDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <p class="form-control">
+                    @Html.DisplayFor(model => model.FromDate)
+                </p>
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ToDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <p class="form-control">
+                    @Html.DisplayFor(model => model.ToDate)
+                </p>
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="VmPattern" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <p class="form-control">
+                    @Html.DisplayFor(model => model.VmPattern)
+                </p>
+                <span asp-validation-for="VmPattern" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Dsl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <p class="form-control">
+                    @Html.DisplayFor(model => model.Dsl)
+                </p>
+                <span asp-validation-for="Dsl" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to Start</a>
+</div>
+
+<hr />
+<p> OUTPUT STUFF SHOULD GO HERE</p>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
