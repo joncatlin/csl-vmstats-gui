@@ -20,56 +20,22 @@ connection.on("ReceiveMessage", (user, message) => {
 });
 
 
-// This method draws a chart
-function drawChart(chartName, data) {
+// This method draws a chart in a specified area of the screen
+function drawChart(chartName, xData, yData) {
     var ctx = document.getElementById(chartName).getContext('2d');
-/*
-    new Chart(document.getElementById(chartName), {
-        type: 'line',
-        data: {
-            labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
-            datasets: [{
-                data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                label: "Africa",
-                borderColor: "#3e95cd",
-                fill: false
-            }, {
-                data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                label: "Asia",
-                borderColor: "#8e5ea2",
-                fill: false
-            }
-            ]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'World population per region (in millions)'
-            }
-        }
-    });
-*/
+
     //line chart data
     var data = {
-        labels: ["match1", "match2", "match3", "match4", "match5"],
+        labels: xData,
         datasets: [
             {
-                label: "TeamA Score",
-                data: [10, 50, 25, 70, 40],
+                label: "Usage",
+                data: yData,
                 backgroundColor: "blue",
                 borderColor: "lightblue",
                 fill: false,
                 lineTension: 0,
-                radius: 5
-            },
-            {
-                label: "TeamB Score",
-                data: [20, 35, 40, 60, 50],
-                backgroundColor: "green",
-                borderColor: "lightgreen",
-                fill: false,
-                lineTension: 0,
-                radius: 5
+                radius: 0
             }
         ]
     };
@@ -77,10 +43,11 @@ function drawChart(chartName, data) {
     //options
     var options = {
         responsive: true,
+        maintainAspectRatio: false,
         title: {
             display: true,
             position: "top",
-            text: "Line Graph",
+            text: "Title - TODO needs changing",
             fontSize: 18,
             fontColor: "#111"
         },
@@ -108,20 +75,25 @@ function drawChart(chartName, data) {
 
 
 
-// This method is called by the server
-connection.on("DisplayRaw", (message) => {
-    console.log("In DisplayRaw" + message);
-
-    drawChart("rawGraph", "");
+// This method is called by the server to display a graph in the raw area
+connection.on("DisplayGraph", (displayArea, xData, yData) => {
+    console.log("In DisplayGraph");
+    console.log("dsioplayArea = " + displayArea);
+    console.dir(xData);
+    console.dir(yData);
+    drawChart(displayArea, xData, yData);
 });
 
 connection.start().catch(err => console.error(err.toString()));
 
-// This method invokes the server side code
-document.getElementById("sendButton").addEventListener("click", event => {
-    const user = document.getElementById("userInput").value;
-    const message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+// Add an event listener so when the button is pressed it invokes the server side code
+document.getElementById("processButton").addEventListener("click", event => {
+    console.log("In processButton - click");
+    const fromDate = document.getElementById("FromDate").value;
+    const toDate = document.getElementById("ToDate").value;
+    const vmPattern = document.getElementById("VmPattern").value;
+    const dsl = document.getElementById("Dsl").value;
+    connection.invoke("Process", fromDate, toDate, vmPattern, dsl).catch(err => console.error(err.toString()));
     event.preventDefault();
 });
 
