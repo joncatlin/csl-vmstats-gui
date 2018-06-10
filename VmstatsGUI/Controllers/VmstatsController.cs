@@ -18,39 +18,20 @@ namespace VmstatsGUI
             return View();
         }
 
-/*
-        public IActionResult Process(string vmpattern = "", string date = "", string dsl = "")
-        {
-            ViewData["Vmpattern"] = vmpattern;
-            ViewData["Date"] = date;
-            ViewData["Dsl"] = dsl;
-
-            return View();
-        }
-*/
-
-
-
-        // POST: Movies/Edit/5
+        // POST: /Vmstats/Process
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Process(int id, [Bind("ID,FromDate,ToDate,Dsl,VmPattern")] Request request)
         {
+            /*
             if (ModelState.IsValid)
             {
                 return RedirectToAction("Index");
             }
-            return View(request);
+            */
+            return View("Index");
         }
-
-
-
-
-
-
-
-
     }
 }

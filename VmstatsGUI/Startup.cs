@@ -35,6 +35,10 @@ namespace VmstatsGUI
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Use the SignalR framework for web socket comms to the browser client
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,12 @@ namespace VmstatsGUI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            // Configure the SignalR route to the hub
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<VmstatsHub>("/vmstatsHub");
+            });
 
             app.UseMvc(routes =>
             {

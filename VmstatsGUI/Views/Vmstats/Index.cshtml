@@ -50,9 +50,52 @@
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to Start</a>
+<hr />
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-6">&nbsp;</div>
+    <div class="col-6">
+        <canvas id="rawGraph" width="400" height="400"></canvas>
+    </div>
+</div>
+
+
+<!-- TODO see article https://www.c-sharpcorner.com/article/creating-charts-with-asp-net-core/ -->
+
+
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/vmstats.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
