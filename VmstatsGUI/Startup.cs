@@ -61,7 +61,7 @@ namespace VmstatsGUI
             // Configure the SignalR route to the hub
             app.UseSignalR(routes =>
             {
-                routes.MapHub<VmstatsHub>("/vmstatsHub");
+                routes.MapHub<URL>("/vmstatsHub");
             });
 
             app.UseMvc(routes =>
