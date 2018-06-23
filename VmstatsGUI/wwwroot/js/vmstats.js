@@ -6,6 +6,16 @@
 //
 // See Es5-chat.js for a Babel transpiled version of the following code:
 
+
+
+// TODO Implement a mechanism to add graphs to the client display whenever the server calls the clients methods. In this way the client can display lots of graphs instead of one
+// TODO Whenever a new DSL is entered and submitted for processing to the server, assuming the return is success then clear the graph displays and wait for results
+// TODO Ensure any charts displayed in an area are sorted by their title so they should always be in the same order given them same DSL
+
+
+
+
+
 const connection = new signalR.HubConnectionBuilder()
     .withUrl("/vmstatsHub")
     .build();

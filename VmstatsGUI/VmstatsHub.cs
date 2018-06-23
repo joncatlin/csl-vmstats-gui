@@ -10,18 +10,20 @@ using Newtonsoft.Json;
 
 namespace VmstatsGUI
 {
-    public class URL : Hub
+    public class VmstatsHub : Hub<ITypedHubClient>
     {
         // Names of all the environment variables needed by the application
         static readonly string ENV_VMSTATS_WEBSERVER_URL = "VMSTATS_WEBSERVER_URL";
 
         // Initialize the URL from the environment variables
-        private string webserverUrl = GetEnvironmentVariable(ENV_VMSTATS_WEBSERVER_URL);
+        static readonly string webserverUrl = GetEnvironmentVariable(ENV_VMSTATS_WEBSERVER_URL);
 
         // Data structure to keep track of all the users in case we need to get the ids to send them messages
         private static ConcurrentDictionary<string, string>connections = new ConcurrentDictionary<string, string>();
 
-        // Method invoked by js client code
+        /// <summary>  
+        ///  This method is called by the browser client js code, when a request is being made to process some virtual machine statistics.
+        /// </summary>  
         public async Task Process(string fromDate, string toDate, string vmPattern, string dsl)
         {
             // Contact the vmstats command webserver and send it the details
@@ -38,6 +40,8 @@ namespace VmstatsGUI
             pcmd.ToDate = Convert.ToDateTime(toDate);
             pcmd.VmPattern = vmPattern;
             pcmd.Dsl = dsl;
+            pcmd.ConnectionId = Context.ConnectionId;
+
             string postBody = JsonConvert.SerializeObject(pcmd);
 
             try
@@ -75,7 +79,7 @@ namespace VmstatsGUI
 
 
 
-
+/*
             Random rand = new Random();
             var xData = new string[1500];
             var yData = new float[1500];
@@ -94,16 +98,13 @@ namespace VmstatsGUI
             }
 
             await ReturnResultToClient(Context.ConnectionId, "processedGraph", xData, yData);
+*/
         }
 
-        // Method invoked by js client code
-        public async Task ReturnResultToClient(string connectionId, string displayArea, string[] xData, float[] yData)
-        {
-            await Clients.Client(connectionId).SendAsync("DisplayGraph", displayArea, xData, yData);
-        }
-
-
-        // Method invoked when new client connects
+        /// <summary>  
+        ///  This method is called by the SignalR framework whenever a browser client connects.
+        ///  
+        /// </summary>  
         public override async Task OnConnectedAsync()
         {
             // Add the connection to the list of connections
@@ -112,6 +113,9 @@ namespace VmstatsGUI
             await base.OnConnectedAsync();
         }
 
+        /// <summary>  
+        ///  This method is called by the SignalR framework whenever a browser client disconnect.
+        /// </summary>  
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             // Remove the connection from the set of connections
@@ -121,6 +125,10 @@ namespace VmstatsGUI
             await base.OnDisconnectedAsync(exception);
         }
 
+        /// <summary>  
+        /// This method returns the value of an environment variable given its name. If the varaible is not found then the program is terminated.
+        /// 
+        /// </summary>  
         private static string GetEnvironmentVariable(string envVarName)
         {
             string temp = Environment.GetEnvironmentVariable(envVarName);

@@ -12,5 +12,6 @@ namespace VmstatsGUI
         public DateTime ToDate { get; set; }
         public string VmPattern { get; set; }
         public string Dsl { get; set; }
+        public string ConnectionId { get; set; }
     }
 }
