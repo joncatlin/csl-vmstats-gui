@@ -22,8 +22,8 @@ namespace VmstatsGUI
                 .UseStartup<Startup>()
 
                 // params string[] urls
-                //                .UseUrls(urls: "http://localhost:80")
-                .UseUrls("http://*:80")
+               //                 .UseUrls(urls: "http://localhost")
+//                .UseUrls("http://*:80")
 
                 .Build();
     }

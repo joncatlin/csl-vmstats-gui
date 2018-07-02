@@ -24,6 +24,7 @@ namespace VmstatsGUI
 
 
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
