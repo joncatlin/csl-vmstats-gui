@@ -53,7 +53,7 @@ namespace VmstatsGUI
                     Console.WriteLine("Success!");
                 } else
                 {
-                    Console.WriteLine("Failure!");
+                    Console.WriteLine($"Failure! Status: {response.StatusCode}, Msg: {response.ReasonPhrase}");
                 }
             }
             catch (HttpRequestException hre)

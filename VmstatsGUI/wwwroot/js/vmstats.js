@@ -88,7 +88,7 @@ function drawChart(chartName, xData, yData) {
 // This method is called by the server to display a graph in the raw area
 connection.on("DisplayGraph", (displayArea, xData, yData) => {
     console.log("In DisplayGraph");
-    console.log("dsioplayArea = " + displayArea);
+    console.log("displayArea = " + displayArea);
     console.dir(xData);
     console.dir(yData);
     drawChart(displayArea, xData, yData);

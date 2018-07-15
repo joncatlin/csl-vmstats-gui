@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  vmstats:
+    image: joncatlin/vmstats-gui
+    restart: always
+    environment:
+      VMSTATS_WEBSERVER_URL: "http://docker01.dest.internal:8080/api/cmd"
+    ports:
+      - "8081:80"

@@ -35,6 +35,10 @@ namespace VmstatsGUI
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().AddRazorPagesOptions(o =>
+            {
+                o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            });
 
             // Use the SignalR framework for web socket comms to the browser client
             services.AddSignalR();
@@ -54,7 +58,6 @@ namespace VmstatsGUI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
