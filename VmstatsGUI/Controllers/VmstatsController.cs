@@ -59,8 +59,16 @@ namespace VmstatsGUI
             var jsonRequest = JsonConvert.SerializeObject(msg);
             Console.WriteLine($"Received ReturnResultToClient. Message is: {jsonRequest}");
 
+            // Convert the time to strings only showing hour and minute
+            string[] times = new string[msg.Xdata.Length];
+            for (int i= 0; i < msg.Xdata.Length; i++)
+            {
+                DateTime newDate = new DateTime(msg.Xdata[i]);
+                times[i] = newDate.ToString("HH:mm");
+            }
+
             // Send the correct information back to the client to display the graph
-            await context.Clients.Client(msg.ConnectionId).SendAsync("DisplayGraph", "processedGraph", msg.Xdata, msg.Ydata);
+            await context.Clients.Client(msg.ConnectionId).SendAsync("DisplayGraph", msg.IsRaw, times, msg.Ydata, msg.VmName, msg.Date, msg.MetricName);
         }
     }
 }

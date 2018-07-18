@@ -40,6 +40,8 @@ namespace VmstatsGUI
                 o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
             });
 
+            services.AddCors();
+
             // Use the SignalR framework for web socket comms to the browser client
             services.AddSignalR();
 
@@ -60,6 +62,14 @@ namespace VmstatsGUI
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            // Use CORS
+            app.UseCors(x => x
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+//                            .AllowCredentials()
+                            );
 
             // Configure the SignalR route to the hub
             app.UseSignalR(routes =>
