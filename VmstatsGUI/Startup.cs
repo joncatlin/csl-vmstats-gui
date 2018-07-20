@@ -64,12 +64,12 @@ namespace VmstatsGUI
             app.UseCookiePolicy();
 
             // Use CORS
-            app.UseCors(x => x
-                            .AllowAnyOrigin()
-                            .AllowAnyMethod()
-                            .AllowAnyHeader()
-//                            .AllowCredentials()
-                            );
+            app.UseCors(builder => builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
+
 
             // Configure the SignalR route to the hub
             app.UseSignalR(routes =>

@@ -19,11 +19,14 @@ namespace VmstatsGUI
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-
                 // params string[] urls
-               //                 .UseUrls(urls: "http://localhost")
-//                .UseUrls("http://*:80")
+                //                 .UseUrls(urls: "http://localhost")
+                //                .UseUrls("http://*:80")
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
+                .UseStartup<Startup>()
+                .UseUrls("http://*:8080")
 
                 .Build();
     }
