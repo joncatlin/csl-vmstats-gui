@@ -67,8 +67,12 @@ namespace VmstatsGUI
                 times[i] = newDate.ToString("HH:mm");
             }
 
+            // Add the day of week to the date
+            DateTime dowDate = Convert.ToDateTime(msg.Date);
+            string dow = dowDate.ToString("ddd");
+
             // Send the correct information back to the client to display the graph
-            await context.Clients.Client(msg.ConnectionId).SendAsync("DisplayGraph", msg.IsRaw, times, msg.Ydata, msg.VmName, msg.Date, msg.MetricName);
+            await context.Clients.Client(msg.ConnectionId).SendAsync("DisplayGraph", msg.IsRaw, times, msg.Ydata, msg.VmName, msg.Date + "-" + dow, msg.MetricName);
         }
     }
 }
