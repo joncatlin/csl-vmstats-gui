@@ -84,18 +84,65 @@ function drawChart(canvas, title, xData, yData) {
 
 
 }
+   
+function sortList1(listName) {
+    console.log("In SortList1");
+    console.log("mylist");
+    console.dir($("#container-" + listName).children(".graph"));
+    $("#container-" + listName).children(".graph").sort(function (a, b) {
+//        $('div').sort(function (a, b) {
+
+        var contentA = a.id.toUpperCase();
+        var contentB = b.id.toUpperCase();
+        console.log("contentA=" + contentA + " - contentB=" + contentB);
+        return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+    });
+
+    /*
+        var compA = a.getAttribute('id').toUpperCase();
+        var compB = b.getAttribute('id').toUpperCase();
+        return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+    */
+}
+
 
 
 function sortList(listName) {
-    console.log("In SortList3");
-    var mylist = document.getElementById('container-'+listName);
-    var divs = mylist.getElementsByTagName('div');
+    console.log("In SortList");
+//    var mylist = document.getElementById('container-'+listName);
+//    var divs = mylist.getElementsByTagName('div');
+
+    var mylist = $("#container-"+listName);
+    console.log("mylist");
+    console.dir(mylist);
+    var divs = $("#container-" + listName).children(".graph");
+    console.log("divs");
+    console.dir(divs);
+
+
+
     var listitems = [];
     for (i = 0; i < divs.length; i++) {
         listitems.push(divs.item(i));
     }
+
+    console.dir(listitems);
+
     listitems.sort(function (a, b) {
-        if (b == null) return 1;
+        console.log("In SortList");
+
+        if (a === null) {
+            console.log("a === null");
+            return 1;
+        } else {
+            console.log("a === " + a.getAttribute('id').toUpperCase());
+        }
+        if (b === null) {
+            console.log("b === null");
+            return 1;
+        } else {
+            console.log("b === " + b.getAttribute('id').toUpperCase());
+        }
         var compA = a.getAttribute('id').toUpperCase();
         var compB = b.getAttribute('id').toUpperCase();
         return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
@@ -128,6 +175,7 @@ connection.on("DisplayGraph", (isRaw, xData, yData, vmName, date, metricName) =>
     var listName = (isRaw == true) ? "rawList" : "processedList";
     var list = document.getElementById("container-"+listName);
     var entry = document.createElement('div');
+    entry.className = 'graph';
 //    var entry = document.createElement('li');
     entry.id = title;
 
@@ -152,7 +200,7 @@ connection.on("DisplayGraph", (isRaw, xData, yData, vmName, date, metricName) =>
 
     // Draw the chart and reorder the list
     drawChart(canvas, title, xData, yData);
-    sortList(listName);
+    sortList1(listName);
 });
 
 connection.start().catch(err => console.error(err.toString()));
