@@ -26,7 +26,7 @@ namespace VmstatsGUI
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://*:8080")
+                .UseUrls("http://*:80")
 
                 .Build();
     }
